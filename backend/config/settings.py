@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from datetime import timedelta
 
@@ -10,10 +11,14 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-dev-key-change-me')
 DEBUG = config('DEBUG', default=True, cast=bool)
 ALLOWED_HOSTS = config(
     'ALLOWED_HOSTS',
-    default='localhost,127.0.0.1,multi-tenant-saas-admin-dashboard.onrender.com,.vercel.app',
+    default='localhost,127.0.0.1,.onrender.com,.vercel.app',
     cast=Csv(),
 )
 ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS if host.strip()]
+# On Render, env ALLOWED_HOSTS may list the wrong hostname; always allow the live host.
+for _host in ('.onrender.com', os.environ.get('RENDER_EXTERNAL_HOSTNAME')):
+    if _host and _host not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append(_host)
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
