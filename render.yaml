@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: multi-tenant-saas-admin-dashboard
+    env: python
+    rootDir: backend
+    plan: free
+    buildCommand: ./build.sh
+    startCommand: python manage.py migrate --noinput && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 3
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.4
+      - key: SECRET_KEY
+        value: change-me-in-render
+      - key: DEBUG
+        value: false
+      - key: ALLOWED_HOSTS
+        value: localhost,127.0.0.1,multi-tenant-saas-admin-dashboard.onrender.com,.vercel.app
+      - key: CORS_ALLOWED_ORIGINS
+        value: http://localhost:3000,https://multi-tenant-saas-admin-dashboard.onrender.com,https://*.vercel.app
+      - key: CSRF_TRUSTED_ORIGINS
+        value: http://localhost:3000,https://multi-tenant-saas-admin-dashboard.onrender.com,https://*.vercel.app
+      - key: DATABASE_URL
+        value: sqlite:///db.sqlite3

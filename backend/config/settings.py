@@ -191,16 +191,21 @@ SIMPLE_JWT = {
 # CORS
 CORS_ALLOWED_ORIGINS = config(
     'CORS_ALLOWED_ORIGINS',
-    default='http://localhost:3000,https://your-frontend.vercel.app',
+    default='http://localhost:3000,http://127.0.0.1:3000,https://multi-tenant-saas-admin-dashboard.onrender.com,https://your-frontend.vercel.app',
     cast=Csv(),
 )
 CSRF_TRUSTED_ORIGINS = config(
     'CSRF_TRUSTED_ORIGINS',
-    default='http://localhost:3000,https://your-frontend.vercel.app',
+    default='http://localhost:3000,http://127.0.0.1:3000,https://multi-tenant-saas-admin-dashboard.onrender.com,https://your-frontend.vercel.app',
     cast=Csv(),
 )
-CORS_ALLOWED_ORIGIN_REGEXES = [r'^https://.*\.vercel\.app$', r'^http://localhost:\d+$']
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r'^https://.*\.vercel\.app$',
+    r'^http://localhost:\d+$',
+    r'^http://127\.0\.0\.1:\d+$',
+]
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = DEBUG
 
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

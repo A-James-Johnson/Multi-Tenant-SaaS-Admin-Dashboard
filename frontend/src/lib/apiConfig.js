@@ -1,4 +1,19 @@
-const DEFAULT_API_URL = 'https://multi-tenant-saas-admin-dashboard.onrender.com';
+const getDefaultApiUrl = () => {
+  if (typeof window !== 'undefined') {
+    const host = window.location.hostname;
+    if (host === 'localhost' || host === '127.0.0.1' || host.startsWith('192.168.')) {
+      return 'http://localhost:8000';
+    }
+  }
+
+  if (process.env.NODE_ENV === 'development') {
+    return 'http://localhost:8000';
+  }
+
+  return 'https://multi-tenant-saas-admin-dashboard.onrender.com';
+};
+
+const DEFAULT_API_URL = getDefaultApiUrl();
 
 export const getApiBaseUrl = () => {
   const value = process.env.NEXT_PUBLIC_API_URL || DEFAULT_API_URL;
