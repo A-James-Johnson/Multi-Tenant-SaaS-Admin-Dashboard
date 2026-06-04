@@ -146,20 +146,22 @@ npm run dev
 
 See [docs/API.md](docs/API.md) and live Swagger UI at `/api/docs/`.
 
+## Screenshots
+
+Below are the current project screenshots for quick visual reference in the repository.
+
+![Dashboard overview](image.png)
+
+![Tenant management view](image-1.png)
+
+![Billing and subscriptions view](image-2.png)
+
+![Analytics dashboard](image-3.png)
+
+![Notifications and settings](image-4.png)
+
+![User management view](image-5.png)
+
 ## License
 
 MIT
-
-screeshots
-
-![alt text](image.png)
-
-![alt text](image-1.png)
-
-![alt text](image-2.png)
-
-![alt text](image-3.png)
-
-![alt text](image-4.png)
-
-![alt text](image-5.png)
