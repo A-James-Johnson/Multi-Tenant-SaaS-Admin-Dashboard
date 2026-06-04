@@ -198,15 +198,21 @@ def get_tokens_for_user(user, request=None):
     refresh['role'] = user.role.name
     refresh['tenant_id'] = user.tenant_id
     if request:
-        user.last_login_ip = getattr(request, 'client_ip', None)
+        from core.middleware import normalize_client_ip
+
+        client_ip = normalize_client_ip(getattr(request, 'client_ip', None))
+        user.last_login_ip = client_ip
         user.save(update_fields=['last_login_ip'])
-        AuditLogService.log(
-            user=user,
-            action='login',
-            description=f'User {user.email} logged in',
-            ip_address=getattr(request, 'client_ip', None),
-            tenant=user.tenant,
-        )
+        try:
+            AuditLogService.log(
+                user=user,
+                action='login',
+                description=f'User {user.email} logged in',
+                ip_address=client_ip,
+                tenant=user.tenant,
+            )
+        except Exception:
+            pass
     return {
         'refresh': str(refresh),
         'access': str(refresh.access_token),

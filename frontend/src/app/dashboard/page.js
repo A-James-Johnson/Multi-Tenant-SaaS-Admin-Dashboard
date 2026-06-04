@@ -6,18 +6,24 @@ import ProtectedRoute from '@/components/ProtectedRoute';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import KPICard from '@/components/ui/KPICard';
 import { RevenueChart, GrowthChart, DistributionChart } from '@/components/charts/Charts';
+import { useAuth } from '@/context/AuthContext';
 import { analyticsAPI } from '@/lib/api';
 import { formatCurrency, formatDateTime } from '@/lib/utils';
 
 export default function DashboardPage() {
+  const { user } = useAuth();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!user) {
+      setLoading(false);
+      return;
+    }
     analyticsAPI.dashboard().then((res) => {
       setData(res.data.data);
     }).catch(console.error).finally(() => setLoading(false));
-  }, []);
+  }, [user]);
 
   const kpis = data?.kpis || {};
 

@@ -1,6 +1,20 @@
 import threading
 
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_ipv46_address
+
 _thread_locals = threading.local()
+
+
+def normalize_client_ip(ip):
+    """Return a valid IP or None. Empty/invalid values break GenericIPAddressField."""
+    if not ip:
+        return None
+    try:
+        validate_ipv46_address(ip)
+        return ip
+    except ValidationError:
+        return None
 
 
 def get_current_tenant():
@@ -41,7 +55,7 @@ class AuditLogMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        request.client_ip = self._get_client_ip(request)
+        request.client_ip = normalize_client_ip(self._get_client_ip(request))
         return self.get_response(request)
 
     @staticmethod
@@ -49,4 +63,4 @@ class AuditLogMiddleware:
         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
         if x_forwarded_for:
             return x_forwarded_for.split(',')[0].strip()
-        return request.META.get('REMOTE_ADDR', '')
+        return request.META.get('REMOTE_ADDR') or None
