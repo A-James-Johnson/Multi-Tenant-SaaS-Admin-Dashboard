@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from datetime import timedelta
 
@@ -8,17 +9,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-dev-key-change-me')
 DEBUG = config('DEBUG', default=True, cast=bool)
-# ALLOWED_HOSTS = config(
-#     'ALLOWED_HOSTS',
-#     default='localhost,127.0.0.1,multi-tenant-saas-admin-dashboard.onrender.com,.vercel.app',
-#     cast=Csv(),
-# )
-ALLOWED_HOSTS = [
-    "multi-tenant-saas-admin-dashboard-1.onrender.com",
-    "localhost",
-    "127.0.0.1",
-]
-# ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS if host.strip()]
+ALLOWED_HOSTS = config(
+    'ALLOWED_HOSTS',
+    default='localhost,127.0.0.1,.onrender.com,.vercel.app',
+    cast=Csv(),
+)
+ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS if host.strip()]
+# Render injects the live service hostname (e.g. my-app-1.onrender.com)
+_render_hostname = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if _render_hostname and _render_hostname not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append(_render_hostname)
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
