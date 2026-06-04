@@ -84,18 +84,30 @@ WSGI_APPLICATION = 'config.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': config('MYSQL_DATABASE', default='saas_admin'),
+#         'USER': config('MYSQL_USER', default='saas_user'),
+#         'PASSWORD': config('MYSQL_PASSWORD', default='saas_password'),
+#         'HOST': config('MYSQL_HOST', default='127.0.0.1'),
+#         'PORT': config('MYSQL_PORT', default='3306', cast=int),
+#         'OPTIONS': {
+#             'charset': 'utf8mb4',
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#         },
+#     }
+# }
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': config('MYSQL_DATABASE', default='saas_admin'),
-        'USER': config('MYSQL_USER', default='saas_user'),
-        'PASSWORD': config('MYSQL_PASSWORD', default='saas_password'),
-        'HOST': config('MYSQL_HOST', default='127.0.0.1'),
-        'PORT': config('MYSQL_PORT', default='3306', cast=int),
-        'OPTIONS': {
-            'charset': 'utf8mb4',
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
+        'NAME': os.environ.get('MYSQL_DATABASE'),
+        'USER': os.environ.get('MYSQL_USER'),
+        'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
+        'HOST': os.environ.get('MYSQL_HOST'),
+        'PORT': os.environ.get('MYSQL_PORT'),
     }
 }
 
