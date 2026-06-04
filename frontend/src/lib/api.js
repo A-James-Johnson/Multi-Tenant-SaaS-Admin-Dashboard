@@ -1,10 +1,11 @@
 import axios from 'axios';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
+import { API_PREFIX } from './apiConfig';
 
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: API_PREFIX,
   headers: { 'Content-Type': 'application/json' },
+  timeout: 30000,
 });
 
 api.interceptors.request.use((config) => {
@@ -24,7 +25,7 @@ api.interceptors.response.use(
       const refresh = localStorage.getItem('refresh_token');
       if (refresh) {
         try {
-          const res = await axios.post(`${API_URL}/auth/refresh/`, { refresh });
+          const res = await axios.post(`${API_PREFIX}/auth/refresh/`, { refresh });
           localStorage.setItem('access_token', res.data.access);
           original.headers.Authorization = `Bearer ${res.data.access}`;
           return api(original);
