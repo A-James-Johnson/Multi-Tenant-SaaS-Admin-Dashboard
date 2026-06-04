@@ -148,14 +148,27 @@ See [docs/API.md](docs/API.md) and live Swagger UI at `/api/docs/`.
 
 ## Screenshots
 
-![Screenshot 1](image-1.png)
+### Dashboard
 
-![Screenshot 2](image-2.png)
+<img src="./image.png" alt="Dashboard overview with KPIs and charts" width="100%" />
 
-![Screenshot 3](image-3.png)
+### Users
 
-![Screenshot 4](image-4.png)
+<img src="./image-1.png" alt="Users management table" width="100%" />
 
-![Screenshot 5](image-5.png)
+### Subscriptions
 
+<img src="./image-2.png" alt="Subscriptions and plans" width="100%" />
+
+### Billing
+
+<img src="./image-3.png" alt="Billing payments and invoices" width="100%" />
+
+### Analytics
+
+<img src="./image-4.png" alt="Analytics revenue and user growth" width="100%" />
+
+### Sign up
+
+<img src="./image-5.png" alt="Tenant signup page" width="100%" />
 
