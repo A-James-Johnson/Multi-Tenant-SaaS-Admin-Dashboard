@@ -148,20 +148,14 @@ See [docs/API.md](docs/API.md) and live Swagger UI at `/api/docs/`.
 
 ## Screenshots
 
-Below are the current project screenshots for quick visual reference in the repository.
+![Screenshot 1](image-1.png)
 
-![Dashboard overview](image.png)
+![Screenshot 2](image-2.png)
 
-![Tenant management view](image-1.png)
+![Screenshot 3](image-3.png)
 
-![Billing and subscriptions view](image-2.png)
+![Screenshot 4](image-4.png)
 
-![Analytics dashboard](image-3.png)
+![Screenshot 5](image-5.png)
 
-![Notifications and settings](image-4.png)
 
-![User management view](image-5.png)
-
-## License
-
-MIT
